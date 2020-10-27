@@ -5,8 +5,8 @@
       랜덤팀
       <!--<router-link :to="{path:'/teamviewer',query:{playercount:8}}">랜덤팀</router-link>-->
     </button>
-    <button class="teamMakeRandomBtn">포지션별팀(개발중)</button>
-    <button class="guestplusBtn">+게스트추가(개발중)</button>
+    <button class="teamMakeRandomBtn" @click="executePositionTeam($event)">포지션별팀(개발중)</button>
+    <button class="guestplusBtn" @click="executeGuestAdd($event)">+게스트추가(개발중)</button>
     <table class="table table-striped table-hover">
       <thead>
       <tr>
@@ -120,6 +120,15 @@ export default {
     playercount: 0
   }),
   methods: {
+    executePositionTeam(e){
+      console.log(e);
+      alert('개발중입니다.');
+    },
+    executeGuestAdd(e){
+      console.log(e);
+      alert('개발중입니다.');
+    },
+
     selectedcheck(e) {
       if (e.target.checked) {
         this.playercount++;

@@ -6,9 +6,11 @@
     <div>
       <router-link :to="{path:'/ongamelistview',query:{playercount:8}}">4:4</router-link>
     </div>
+    <!--
     <div>
       <router-link :to="{path:'/ongamelistview',query:{playercount:10}}">5:5</router-link>
     </div>
+    -->
   </div>
 </template>
 
