@@ -1,10 +1,12 @@
 <template>
   <div class="ongamelistview">
     <!--<h1>{{ $route.query.playercount }}</h1> -->
-
-    <div class="teamMakeRandomBtn">랜덤팀 짜기</div>
-    <div class="teamMakeRandomBtn">포지션 고려</div>
-    <button class="guestplusBtn">+게스트추가</button>
+    <button class="teamMakeRandomBtn" @click="executeRandomTeam">
+      랜덤팀
+      <!--<router-link :to="{path:'/teamviewer',query:{playercount:8}}">랜덤팀</router-link>-->
+    </button>
+    <button class="teamMakeRandomBtn">포지션별팀(개발중)</button>
+    <button class="guestplusBtn">+게스트추가(개발중)</button>
     <table class="table table-striped table-hover">
       <thead>
       <tr>
@@ -25,7 +27,8 @@
       <tr v-for="i in items" v-bind:key="i.name">
         <td>
           <label class="form-checkbox">
-            <input type="checkbox" :value="i.name" v-model="selected" @click="selectedcheck($event)">
+            <input type="checkbox" :value="i.name" @click="selectedcheck($event)">
+            <!--<input type="checkbox" :value="i.name" v-model="selected" @click="selectedcheck($event)">-->
             <i class="form-icon"></i>
           </label>
         </td>
@@ -113,20 +116,49 @@ export default {
       }
     ],
     selected: [],
-    selectAll: false
+    selectAll: false,
+    playercount : 0
   }),
   methods: {
     selectedcheck(e) {
-      console.log(e);
+      if(e.target.checked){
+        this.playercount++;
+        let addplayer = this.items.find(x=>x.name==e.target.value);
+        this.selected.push(addplayer);
+      }
+      else{
+        this.playercount--;
+        let rmplayer = this.selected.find(x=>x.name==e.target.value);
+        if(rmplayer){
+          const idx = this.selected.findIndex(function (item){
+            return item.name == rmplayer.name;
+          })
+          this.selected.splice(idx,1)
+        }
+      }
+    },
+
+    executeRandomTeam(){
+      if(this.$route.query.playercount == this.playercount)
+      {
+          //<router-link :to="{path:'/teamviewer',query:{playercount:8}}">랜덤팀</router-link>
+          this.$router.push({path:'/teamviewer',query:{player:this.selected}});
+      }
+      else
+      {
+        alert('팀원수를 맞춰주세요');
+      }
     },
 
     select() {
+      /*
       this.selected = [];
       if (!this.selectAll) {
         for (let i in this.items) {
           this.selected.push(this.items[i].name);
         }
       }
+       */
     }
   }
 }
