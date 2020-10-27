@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import MainWrapper from "@/components/MainWrapper";
 
 Vue.use(VueRouter)
 
@@ -8,17 +7,17 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: MainWrapper
+    component: () => import('@/components/MainWrapper.vue')
   },
   {
     path: '/ongamelistview',
     name: 'ongamelistview',
-    component: () => import('../views/ongamelistview.vue')
+    component: () => import('@/views/ongamelistview.vue')
   },
   {
     path: '/teamviewer',
     name: 'teamviewer',
-    component: () => import('../views/teamviewer.vue')
+    component: () => import('@/views/teamviewer.vue')
   }
 ]
 
