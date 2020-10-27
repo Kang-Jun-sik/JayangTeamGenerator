@@ -47,10 +47,6 @@ export default {
   data: () => ({
     items: [
       {
-        "name": "김지성",
-        "position": 3
-      },
-      {
         "name": "강준식",
         "position": 1
       },
@@ -87,6 +83,18 @@ export default {
         "position": 1
       },
       {
+        "name": "배준형",
+        "position": 2
+      },
+      {
+        "name": "심지훈",
+        "position": 2
+      },
+      {
+        "name": "이장욱",
+        "position": 3
+      },
+      {
         "name": "김성태",
         "position": 2
       },
@@ -105,47 +113,35 @@ export default {
       {
         "name": "어웅선",
         "position": 2
-      },
-      {
-        "name": "유호연",
-        "position": 4
-      },
-      {
-        "name": "이준형",
-        "position": 3
       }
     ],
     selected: [],
     selectAll: false,
-    playercount : 0
+    playercount: 0
   }),
   methods: {
     selectedcheck(e) {
-      if(e.target.checked){
+      if (e.target.checked) {
         this.playercount++;
-        let addplayer = this.items.find(x=>x.name==e.target.value);
+        let addplayer = this.items.find(x => x.name == e.target.value);
         this.selected.push(addplayer);
-      }
-      else{
+      } else {
         this.playercount--;
-        let rmplayer = this.selected.find(x=>x.name==e.target.value);
-        if(rmplayer){
-          const idx = this.selected.findIndex(function (item){
+        let rmplayer = this.selected.find(x => x.name == e.target.value);
+        if (rmplayer) {
+          const idx = this.selected.findIndex(function (item) {
             return item.name == rmplayer.name;
           })
-          this.selected.splice(idx,1)
+          this.selected.splice(idx, 1)
         }
       }
     },
 
-    executeRandomTeam(){
-      if(this.$route.query.playercount == this.playercount)
-      {
-          //<router-link :to="{path:'/teamviewer',query:{playercount:8}}">랜덤팀</router-link>
-          this.$router.push({path:'/teamviewer',query:{player:this.selected}});
-      }
-      else
-      {
+    executeRandomTeam() {
+      if (this.$route.query.playercount == this.playercount) {
+        //<router-link :to="{path:'/teamviewer',query:{playercount:8}}">랜덤팀</router-link>
+        this.$router.push({path: '/teamviewer', query: {player: JSON.stringify(this.selected)}});
+      } else {
         alert('팀원수를 맞춰주세요');
       }
     },
@@ -165,7 +161,7 @@ export default {
 </script>
 
 <style scoped>
-.teamMakeRandomBtn{
+.teamMakeRandomBtn {
   background: pink;
   width: 130px;
   height: 30px;
@@ -173,7 +169,8 @@ export default {
   text-align: center;
   float: right;
 }
-.guestplusBtn{
+
+.guestplusBtn {
   width: 130px;
   height: 30px;
   border: dotted;
